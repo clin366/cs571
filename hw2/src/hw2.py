@@ -178,6 +178,8 @@ class SentimentAnalyzer(Component):
             if gold == auto:
                 correct += 1
             total += 1
+        print("accuracy")
+        print(100.0 * correct / total)
         return 100.0 * correct / total
 
 
@@ -187,6 +189,7 @@ if __name__ == '__main__':
     trn_data = tsv_reader(resource_dir, 'sst.trn.tsv')
     dev_data = tsv_reader(resource_dir, 'sst.dev.tsv')
     tst_data = tsv_reader(resource_dir, 'sst.tst.tsv')
-    sentiment_analyzer.train(trn_data, dev_data)
-    sentiment_analyzer.evaluate(tst_data)
-    sentiment_analyzer.save(os.path.join(resource_dir, 'hw2-model'))
+    # sentiment_analyzer.train(trn_data, dev_data)
+    sentiment_analyzer.load(os.path.join(resource_dir, 'hw2-model'))
+    sentiment_analyzer.evaluate(trn_data)
+    # sentiment_analyzer.save(os.path.join(resource_dir, 'hw2-model'))
