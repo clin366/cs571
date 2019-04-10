@@ -568,3 +568,4 @@ paket-files/
 .idea
 *gram.txt
 *.bin
+*.ipynb
