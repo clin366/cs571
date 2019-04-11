@@ -30,6 +30,7 @@ from keras.utils import np_utils
 from keras.optimizers import Adam
 from keras.regularizers import l2
 import math
+import json
 
 
 class NamedEntityRecognizer(Component):
@@ -39,6 +40,14 @@ class NamedEntityRecognizer(Component):
         :param resource_dir: a path to the directory where resource files are located.
         """
         self.vsm = FastText(os.path.join(resource_dir, embedding_file))
+
+        if os.path.exists(resource_dir + '/label2Idx.json'):
+            with open(resource_dir + '/label2Idx.json') as fi:
+                self.label2Idx = json.load(fi)
+
+            self.idx2Label = {v: k for k, v in self.label2Idx.items()}
+
+
         # TODO: to be filled.
 
     def load(self, model_path: str, **kwargs):
@@ -98,6 +107,9 @@ class NamedEntityRecognizer(Component):
         for label in labelSet:
             self.label2Idx[label] = len(self.label2Idx)
         self.label2Idx['PAD'] = len(self.label2Idx)
+
+        with open(resource_dir + '/label2Idx.json', 'w') as fo:
+            json.dump(self.label2Idx, fo)
 
         self.idx2Label = {v: k for k, v in self.label2Idx.items()}
 
@@ -187,7 +199,7 @@ class NamedEntityRecognizer(Component):
             token_label = []
             for l in sentences:
                 if l != len(self.label2Idx) - 1:
-                    token_label.append(idx2Label[l])
+                    token_label.append(self.idx2Label[l])
             padding_labels.append(token_label)
 
         # y_classes = pred.argmax(axis=-1)
