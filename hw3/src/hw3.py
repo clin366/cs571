@@ -20,8 +20,8 @@ from elit.component import Component
 from elit.embedding import FastText
 from elit.eval import ChunkF1
 
-# from src.util import tsv_reader
-from util import tsv_reader
+from src.util import tsv_reader
+# from util import tsv_reader
 
 import numpy as np
 from keras.layers import Conv2D, MaxPooling2D, Input, Dense, concatenate, Dropout, Activation, Flatten
