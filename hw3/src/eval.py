@@ -9,7 +9,7 @@ if __name__ == '__main__':
     tst_data = tsv_reader(resource_dir, 'conll03.eng.tst.tsv')
     start = time()
     named_entity_recognizer = NamedEntityRecognizer(resource_dir)
-    named_entity_recognizer.load(os.path.join(resource_dir, 'hw3-model'))
+    named_entity_recognizer.load(os.path.join(resource_dir, 'hw-model'))
     score = named_entity_recognizer.evaluate(tst_data)
     end = time()
     print(score, end - start)
