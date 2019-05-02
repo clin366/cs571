@@ -228,4 +228,4 @@ if __name__ == '__main__':
     tst_data = tsv_reader(resource_dir, 'conll03.eng.tst.tsv')
     sentiment_analyzer.train(trn_data, dev_data)
     sentiment_analyzer.evaluate(tst_data)
-    sentiment_analyzer.save(os.path.join(resource_dir, 'hw3-model'))
+    sentiment_analyzer.save(os.path.join(resource_dir, 'hw-model'))
