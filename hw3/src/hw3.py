@@ -20,7 +20,8 @@ from elit.component import Component
 from elit.embedding import FastText
 from elit.eval import ChunkF1
 
-from src.util import tsv_reader
+# from src.util import tsv_reader
+from util import tsv_reader
 
 import numpy as np
 from keras.layers import Conv2D, MaxPooling2D, Input, Dense, concatenate, Dropout, Activation, Flatten
@@ -128,7 +129,7 @@ class NamedEntityRecognizer(Component):
         devlop_ys = [np_utils.to_categorical(i, num_classes=len(self.label2Idx)) for i in Y_dev_padding]
         devlop_ys = np.asarray(devlop_ys)
 
-        max_sentence_length = 113
+        max_sentence_length = 125
         embedding_dim = train_xs.shape[2]
 
         image_input = Input(shape=(max_sentence_length,embedding_dim))
@@ -151,7 +152,7 @@ class NamedEntityRecognizer(Component):
             dataset.append(labelIndices) 
         return dataset
 
-    def padding_training(self, trn_xs, max_sentence_length = 113):
+    def padding_training(self, trn_xs, max_sentence_length = 125):
 
         blank_embedding = self.vsm.emb_list(' ')[0]
         train_xs = []
@@ -165,7 +166,7 @@ class NamedEntityRecognizer(Component):
         train_xs = train_xs.reshape(train_xs.shape[0], train_xs.shape[1], train_xs.shape[2])
         return train_xs
 
-    def padding_training_Y(self, Y_train, max_sentence_length = 113):
+    def padding_training_Y(self, Y_train, max_sentence_length = 125):
 
         
         blank_embedding = len(self.label2Idx) - 1 
